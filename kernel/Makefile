@@ -1,21 +1,22 @@
 include ../Common.mk
 
-all: $(tmp)/$(Object_kernel)
+all: $(Object_kernel)
 
-$(tmp)/$(Object_kernel): CDependency $(tmp)/kernel.elf
+$(Object_kernel): CDependency kernel.elf
 	$(OBJCOPY32) $(tmp)/kernel.elf $@
 
 %.o: ../kernel/%.c
-	cd $(tmp)
-	$(GCC32) -c $<
-	cd ../kernel
+	$(GCC32) $<
+
+%.o: ../kernel/%.asm
+	$(NASM) -o $@ $<
 
 CDependency:
-	$(GCC32) -MM $(CSource_kernel) > $(tmp)/CDependency.dep
+	$(GCC32) -MM ../kernel/$(CSource_kernel) > CDependency.dep
 
-$(tmp)/kernel.elf: $(CMain_kernel) $(CObject_kernel)
+kernel.elf: $(CMain_kernel) $(CObject_kernel) $(AsmObject_kernel)
 	$(LD32) -o $@ $^
 
-ifeq ($(tmp)/CDependency.dep, $(wildcard CDependency.dep))
-include $(tmp)/CDependency.dep
+ifeq (CDependency.dep, $(wildcard CDependency.dep))
+include CDependency.dep
 endif

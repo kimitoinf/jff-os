@@ -9,8 +9,8 @@ prepare:
 
 build: prepare
 	make -C boot
-	make -C kernel
-	make -C tools
+	make -C $(Temp) -f ../kernel/Makefile
+	make -C tools/Aligntool
 	tmp/Aligntool $(Result) $(Temp)/$(Object_boot) $(Temp)/$(Object_kernel)
 
 run-qemu: build
