@@ -14,7 +14,7 @@ BOCHS_OPTION = -q -f
 #Sources
 # This is for boot/Makefile.
 Source_boot = boot.asm
-Object_boot = boot
+Object_boot = boot.bin
 List_boot = boot.lst
 # This is for kernel/Makefile
 CMain_kernel = Main.o

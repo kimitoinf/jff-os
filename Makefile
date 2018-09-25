@@ -1,6 +1,6 @@
 include Common.mk
 
-.PHONY: all prepare build run-qemu run-bochs run-bfe clean
+.PHONY: all prepare build run-qemu run-bochs clean
 
 all: build
 
