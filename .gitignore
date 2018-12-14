@@ -4,5 +4,4 @@
 *.dep
 *.elf
 tmp
-backup
 bochsout.txt
